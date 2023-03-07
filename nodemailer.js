@@ -4,8 +4,8 @@ const Email = (options) => {
   let transpoter = nodemailer.createTransport({
     service: 'gmail', 
     auther: {
-      user: 'stagepfe23@gmail.com', 
-      pass: 'A12345678.', 
+      user: 'gytgutu@gmail.com', 
+      pass: 'tkxyciudxhzppbkl', 
     },
   });
   transpoter.sendMail(options, (err, info) => {

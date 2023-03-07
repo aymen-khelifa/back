@@ -3,7 +3,7 @@ const mysql=require("mysql");
 
 const db = {}
 
-const sequelize = new Sequelize('pfe', 'root','', {
+const sequelize = new Sequelize('stage', 'root','', {
   host: 'localhost',
   dialect: 'mysql',
   port:3307,

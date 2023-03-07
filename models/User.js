@@ -33,7 +33,7 @@ module.exports = db.sequelize.define(
     password: {
       type: Sequelize.STRING,
       allowNull:false,
-      isEmpty:false,
+      
       validate:{
         notEmpty:true
       }
@@ -43,6 +43,17 @@ module.exports = db.sequelize.define(
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
     },
+    isVerified: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: 0
+      
+
+    },role: {
+      type: Sequelize.STRING,
+      defaultValue:"user",
+      
+    
+  },
     
   },
   {
