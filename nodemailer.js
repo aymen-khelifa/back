@@ -1,4 +1,4 @@
-const nodemailer =( 'nodemailer');
+/*const nodemailer =( 'nodemailer');
 
 const Email = (options) => {
   let transpoter = nodemailer.createTransport({
@@ -35,4 +35,4 @@ const Email = (options) => {
   Email(options)
 };
 
-module.exports=EmailSender
+module.exports=EmailSender*/

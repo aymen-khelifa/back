@@ -3,9 +3,10 @@ var cors = require('cors')
 var bodyParser = require('body-parser')
 const mysql=require("mysql");
 var port = process.env.PORT || 5000
+var SequelizeStore = require("connect-session-sequelize");
+var session =require( "express-session");
 var app = express()
 const dotenv =require("dotenv").config();
-
 
 app.use(bodyParser.json())
 app.use(cors({
@@ -41,14 +42,16 @@ app.use(function (req, res, next) {
 app.options("http://localhost:3000", cors())
 
 
+//requte f postman
 
 var router = require('./routes/Users')
+var formateurcandidat=require('./routes/Formateur')
 
-app.use('/users', router)
 
-//var mppoublie=require('./routes/mdpoublie')
+app.use('/users', router);
+app.use('/formateurcandidat',formateurcandidat);
 
-//app.use('/mpdoublier',mppoublie)
+
 
 
 app.listen(port, function() {

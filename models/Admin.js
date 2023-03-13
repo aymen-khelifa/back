@@ -21,19 +21,25 @@ module.exports = db.sequelize.define(
         len:[3,50]
       }
      
-    
-    
     },
-    genre: {
-      type: Sequelize.STRING,
-      
-    },
-    tel: {
-      type: Sequelize.INTEGER,
-      
-
-    }, 
-    
+  
+      genre: {
+        type: Sequelize.STRING,
+        allowNull:false,
+        validate:{
+        notEmpty:true,
+        
+      }
+      },
+      tel: {
+        type: Sequelize.INTEGER,
+        allowNull:false,
+        
+        validate:{
+          notEmpty:true
+        }
+  
+      },
     email: {
       type: Sequelize.STRING,
       allowNull:false,
@@ -50,29 +56,23 @@ module.exports = db.sequelize.define(
         notEmpty:true
       }
 
-    },
-   
+    }, 
+    
     created: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
     },
     isVerified: {
       type: Sequelize.BOOLEAN,
-      defaultValue: 0
+      defaultValue: 1
       
 
-    },
-    role: {
+    },role: {
       type: Sequelize.INTEGER,
-      defaultValue:1,
+      defaultValue:4,
       
     
   },
-  activationCode: {
-    type: Sequelize.STRING,
-    allowNull:true
-  },
-
     
   },
   {
