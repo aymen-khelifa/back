@@ -1,14 +1,18 @@
+const { INTEGER } = require('sequelize');
 const Formateur=require('../models/formateur');
 
 const FormateurController = {
 createFormateur : async(req, res) =>{
+ 
     const today = new Date();
     const userData = {
       name: req.body.name,
       email: req.body.email,
       tel: req.body.tel,
       message:req.body.message,
+      speciality:req.body.speciality,
       created: today,
+      
     };
     Formateur.findOne({
       where: {
@@ -18,7 +22,7 @@ createFormateur : async(req, res) =>{
         if (!user) {
           
             Formateur.create(userData).then(function (user) {
-                res.status(200).send({message:"votre demande est bien envoyé" }) 
+                res.status(200).send({message:"votre demande est bien envoyé"}) 
                 //const email=req.body.email;
                 //EmailSender({email})
                 //res.json({ msg: "Your message sent successfully" });
@@ -34,7 +38,7 @@ createFormateur : async(req, res) =>{
            
           
         } else {
-          res.status(409).send({ message: "demande deja envoyée" });
+          res.status(409).send({ message:"demande deja envoyée"});
         }
       })
       .catch((err) => {
@@ -63,13 +67,56 @@ createFormateur : async(req, res) =>{
     getFormateur : async(req, res) =>{
         try {
             const response = await Formateur.findAll({
-                attributes:['name','email','tel','message']
+                attributes:['uuid','name','email','tel','message','speciality','role'],
+                where: {
+                
+                  role:"candidat",
+  
+              }
+                
             });
             res.status(200).json(response);
         } catch (error) {
             res.status(500).json({msg: error.message});
         }
-    }
+    },
+acceptFormateur: async(req, res) =>{
+
+  const code=INTEGER(req.params.uuid);console.log(code)
+  Formateur.findOne({
+   uuid : code,
+   where: {
+    isVerified: false,
+    role:'candidat'
+  }
+      
+    
+  }).then((user)=>{console.log(user),console.log("aaa")
+   
+   
+        if (user && user.role === 'candidat')
+       {Formateur.update({ isVerified: true,role:'instructeur' }, {
+        where: {
+          isVerified: false,
+          role:'candidat'
+        }
+      });
+          return res.send({
+            message: "candidat Accepté avec Success !",
+          
+        });
+      }else {console.log('aa');return res.send({
+        message: " acceptation echouée",
+      
+    });}
+    })
+   
+;}
+
+
+
+
+
 
 }
 module.exports = FormateurController

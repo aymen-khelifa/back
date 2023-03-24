@@ -2,7 +2,7 @@ const {Sequelize,DataTypes} = require('sequelize')
 const db = require('../config/db.js')
 
 module.exports = db.sequelize.define(
-   'candformateurs',
+   'instructeurs',
   {
     UUid: {
       type: Sequelize.UUID,
@@ -44,10 +44,27 @@ module.exports = db.sequelize.define(
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
     },
+    isVerified: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: 0
+      
+
+    },
     message:{
       type:Sequelize.STRING,
 
-    }
+    },
+    role: {
+      type: Sequelize.STRING,
+      defaultValue:'candidat',
+      
+    
+  },speciality: {
+    type: Sequelize.STRING,
+  
+    
+  
+  },
     
   },
     

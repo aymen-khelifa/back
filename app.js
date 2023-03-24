@@ -5,8 +5,22 @@ const mysql=require("mysql");
 var port = process.env.PORT || 5000
 var SequelizeStore = require("connect-session-sequelize");
 var session =require( "express-session");
+var flash =require("express-flash")
 var app = express()
 const dotenv =require("dotenv").config();
+
+
+app.use(session({ 
+  secret: '123458cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 60000 },
+  secure: 'auto'
+}))
+
+// enregistrer des message de la session 
+
+app.use(flash());
 
 app.use(bodyParser.json())
 app.use(cors({
@@ -45,11 +59,14 @@ app.options("http://localhost:3000", cors())
 //requte f postman
 
 var router = require('./routes/Users')
-var formateurcandidat=require('./routes/Formateur')
+//var formateurcandidat=require('./routes/Formateur')
+var instructeur=require('./routes/Instructeur')
+//var apprenant=require('./routes/Apprenant')
 
-
+//app.use('/Apprenant',apprenant)
 app.use('/users', router);
-app.use('/formateurcandidat',formateurcandidat);
+//app.use('/formateurcandidat',formateurcandidat);
+app.use('/instructeur',instructeur);
 
 
 

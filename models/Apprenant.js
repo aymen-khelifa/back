@@ -24,10 +24,6 @@ module.exports = db.sequelize.define(
     
     
     },
-    genre: {
-      type: Sequelize.STRING,
-      
-    },
     tel: {
       type: Sequelize.INTEGER,
       
@@ -39,7 +35,7 @@ module.exports = db.sequelize.define(
       allowNull:false,
       isEmail:true,validate:{
         notEmpty:true,
-        isEmail:true
+        
       }
     },
     password: {
@@ -51,27 +47,22 @@ module.exports = db.sequelize.define(
       }
 
     },
-   
+    isVerified: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: 1
+      
+
+    },
     created: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
     },
-    isVerified: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: 0
-      
-
-    },
     role: {
-      type: Sequelize.STRING,
-      defaultValue:'user',
-      
+      type: Sequelize.INTEGER,
+      defaultValue:"apprenant",
+     }  
     
-  },
-  activationCode: {
-    type: Sequelize.STRING,
-    allowNull:true
-  },
+ 
 
     
   },

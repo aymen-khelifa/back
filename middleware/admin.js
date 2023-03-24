@@ -1,10 +1,15 @@
 const User=require("../models/User");
 
 const  admin= async (req, res, next) =>{
-    if(req.User.role!=4){
-        return res.status(401).json({err:'acces refuseé'});
-      
+  const user = await User.findOne({
+    where: {
+        uuid: req.session.userId
     }
-  next();
+});
+if(!user) return res.status(404).json({msg: "Utilisateur non trouvé"});
+if(user.role !== "admin") return res.status(403).json({msg: "Accées refusé"});
+next();
 }
+   
+
 module.exports=admin

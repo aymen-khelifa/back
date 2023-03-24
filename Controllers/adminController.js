@@ -3,17 +3,25 @@ const bcrypt = require("bcrypt");
 //const EmailSender =require ('../nodemailer');
  //const nodemailer = require('nodemailer');
 const Admin = require("../models/Admin");
+//const { where } = require("sequelize");
 
 const adminController = { 
 
 
 registeradmin: async (req, res) => {
+  const characters =
+      "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let randomCode = "";
+    for (let i = 0; i < 25; i++) {
+      randomCode += characters[Math.floor(Math.random() * characters.length)];
+    }
         const today = new Date();
         const userData = {
           name: req.body.name,
           genre:req.body.genre, 
           email: req.body.email,
           password: req.body.password,
+          activationCode:randomCode,
           tel:req.body.tel,
           created: today,
         };
@@ -39,7 +47,7 @@ registeradmin: async (req, res) => {
                
               });
             } else {
-              res.status(409).send({ message: "admin already exist" });
+              res.status(409).send({message:"admin already exist"});
             }
           })
           .catch((err) => {
@@ -47,26 +55,32 @@ registeradmin: async (req, res) => {
           });
       },
 getAdmin: async(req, res) =>{
-        try {
+      
+
+       try {
             const response = await Admin.findAll({
-                attributes:['nom','prenom','genre','tel', 'email', 'password']
+                attributes:['uuid','name','genre','tel', 'email', 'role'],
+                where:{role:"admin"}
             });
             res.status(200).json(response);
         } catch (error) {
             res.status(500).json({msg: error.message});
         }
+      
     },
+
+
 deleteadmin :async(req, res) =>{
         const admin = await Admin.findOne({
             where: {
-                uuid: req.params.id
+           email:req.body.email
             }
         });
         if(!admin) return res.status(404).json({msg: "admin not found"});
         try {
             await Admin.destroy({
                 where:{
-                    id: admin.id
+                 email:admin.email
                 }
             });
             res.status(200).json({msg: "admin Deleted"});

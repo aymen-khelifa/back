@@ -2,7 +2,7 @@ const {Sequelize, DataTypes} = require('sequelize')
 const db = require('../config/db.js')
 
 module.exports = db.sequelize.define(
-  'users',
+  'instructeurs',
   {
     UUid: {
       type: Sequelize.UUID,
@@ -15,7 +15,7 @@ module.exports = db.sequelize.define(
     },
     name: {
       type: Sequelize.STRING,
-      allowNull:false,
+   
       validate:{
         notEmpty:true ,
         len:[3,50]
@@ -23,10 +23,6 @@ module.exports = db.sequelize.define(
      
     
     
-    },
-    genre: {
-      type: Sequelize.STRING,
-      
     },
     tel: {
       type: Sequelize.INTEGER,
@@ -56,23 +52,32 @@ module.exports = db.sequelize.define(
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
     },
-    isVerified: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: 0
-      
-
-    },
-    role: {
+    message: {
       type: Sequelize.STRING,
-      defaultValue:'user',
+   
       
     
-  },
-  activationCode: {
-    type: Sequelize.STRING,
-    allowNull:true
-  },
+  },isVerified: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: 1
+    
 
+  },role: {
+    type: Sequelize.STRING,
+    defaultValue:'instructeur',
+    
+  
+},speciality: {
+  type: Sequelize.STRING,
+  allowNull:false,
+      
+      validate:{
+        notEmpty:true
+      }
+  
+
+},
+ 
     
   },
   {

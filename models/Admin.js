@@ -68,8 +68,8 @@ module.exports = db.sequelize.define(
       
 
     },role: {
-      type: Sequelize.INTEGER,
-      defaultValue:4,
+      type: Sequelize.STRING,
+      defaultValue:'admin',
       
     
   },
